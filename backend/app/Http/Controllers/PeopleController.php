@@ -36,7 +36,7 @@ class PeopleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
         $people = People::create($request->post());
         return response()->json([
             'message'=>'People Created Successfully!!',
@@ -94,5 +94,11 @@ class PeopleController extends Controller
         return response()->json([
             'message'=>'people Deleted Successfully!!'
         ]);
+    }
+    public function delete($id)
+    {
+        People::destroy($id);
+    
+        return response()->json("ok");
     }
 }

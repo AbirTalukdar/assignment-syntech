@@ -22,4 +22,6 @@ Route:: prefix('api')->group(function(){
     //GET PEOPLE
     Route::get('getPeople', [PeopleController::class, 'index']);
     Route::post('postPeople',[PeopleController::class, 'store']);
+
+    Route::delete('deletePeople/{id}',[PeopleController::class, 'delete']);
 });

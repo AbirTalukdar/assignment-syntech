@@ -9,14 +9,18 @@
 			</tr>
 		</thead>
 		<tbody class="block md:table-row-group">
-			<tr class="bg-gray-300 border border-grey-500 md:border-none block md:table-row">
-				<td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Name</span>Jamal Rios</td>
-				<td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Email Address</span>jrios@icloud.com</td>
-				<td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Mobile</span>582-3X2-6233</td>
+			<tr class="bg-gray-300 border border-grey-500 md:border-none block md:table-row"
+                v-for="people in peoples" :key="people.id"
+            
+            >
+				<td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">
+                   </span> {{people.fullName}}</td>
+				<td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Email Address</span>{{people.email}}</td>
+				<td class="p-2 md:border md:border-grey-500 text-left block md:table-cell"><span class="inline-block w-1/3 md:hidden font-bold">Mobile</span>{{people.number}}</td>
 				<td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
 					<span class="inline-block w-1/3 md:hidden font-bold">Actions</span>
 					<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded">Edit</button>
-					<button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded">Delete</button>
+					<button @click="del(people.id)" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded">Delete</button>
 				</td>
 			</tr>			
 		</tbody>
@@ -24,34 +28,36 @@
 </template>
 
 <script>
-/*export default {
+import axios from 'axios';
+export default {
+    
     name:"list",
     data(){
         return {
-            list:[]
+            peoples:[]
         }
     },
     mounted(){
-        this.list()
+        this.people()
     },
     methods:{
-        async getCategories(){
-            await this.axios.get('/api/category').then(response=>{
-                this.categories = response.data
+        async people(){
+            await axios.get('http://127.0.0.1:8000/api/getPeople').then(response=>{
+                this.peoples = response.data
             }).catch(error=>{
                 console.log(error)
-                this.categories = []
+                //this.peoples = []
             })
         },
-        deleteCategory(id){
+        del(id){
             if(confirm("Are you sure to delete this category ?")){
-                this.axios.delete(`/api/category/${id}`).then(response=>{
-                    this.getCategories()
+                axios.delete(`http://127.0.0.1:8000/api/deletePeople/${id}`).then(response=>{
+                    console.log(response)
                 }).catch(error=>{
                     console.log(error)
                 })
             }
         }
     }
-}*/
+}
 </script>

@@ -40,7 +40,7 @@
                         </div>
                     </div>
 
-                    <form @submit.prevent="onSubmit" class="p-6 flex flex-col justify-center">
+                    <form @submit.prevent="onSubmit" method="POST" class="p-6 flex flex-col justify-center">
                         <div class="flex flex-col">
                             <label for="name" class="hidden">Full Name</label>
                             <input 
@@ -80,6 +80,7 @@
                         </button>
                     </form>
                     <a href="/list">See all people List </a>
+                    <button @click='getData'>Get Data</button>
                 </div>
             </div>
         </div>
@@ -87,6 +88,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: "add-people",
   data(){
@@ -98,15 +100,24 @@ export default {
       }
     }
   },
+ 
   methods: {
-    /*onSubmit(){
+   /* onSubmit(){
       console.log(this.form)
+
     }*/
-    
     async onSubmit(){
-      await this.axios.post('/api/postPeople',this.form).then(response=>{
+      await axios.post('http://127.0.0.1:8000/api/postPeople',this.form).then(response=>{
         console.log(response)
-        this.$router.push({name:"peopleList"})
+        //this.$router.push({name:"people"})
+        }).catch(error=>{
+            console.log(error)
+        })
+    },
+    
+    async getData(){
+        await axios.get('http://127.0.0.1:8000/api/getPeople').then(response=>{
+            console.log(response)
         }).catch(error=>{
             console.log(error)
         })

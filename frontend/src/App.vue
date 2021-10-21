@@ -1,7 +1,8 @@
 <template>
   <div>
-    <Create />
     <List />
+    <Create />
+    
    <!-- <router-view />-->
   </div>
 </template>
